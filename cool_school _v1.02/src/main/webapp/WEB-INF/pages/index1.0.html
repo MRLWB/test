@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+	name="viewport">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>-达内汽修学院-</title>
+<link rel="stylesheet" type="text/css" href="mycss/gundong.css">
+<link rel="stylesheet" type="text/css"
+	href="lib/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css">
+<link rel="stylesheet" type="text/css" href="stylesheets/theme.css">
+<link rel="stylesheet" type="text/css" href="stylesheets/premium.css">
+
+<style type="text/css">
+.head {
+	height: 160px;
+	width: 1900px;
+}
+
+.all_list {
+	height: 50px;
+	background-color: #010508e1;
+	border-radius: 20px;
+	border-bottom-right-radius: 0px;
+	box-shadow: 5px 5px 5px #685f0c;
+	width: 1900px
+}
+
+.hbf-head {
+	width: 100%;
+	max-width: 1358px;
+	min-width: 1230px;
+	height: 10px;
+	margin-top: 15px;
+	margin-left: -30px;
+	position: relative;
+	z-index: 10;
+}
+
+ul {
+	display: block;
+	list-style-type: none;
+	position: absolute;
+}
+
+.hover {
+	display: none;
+	background-color: #101010a9;
+	border-radius: 20px;
+}
+
+li {
+	padding-top: 8px;
+	padding-left: 150px;
+	color: white;
+	font-size: 25px;
+}
+
+.no-left {
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 20px;
+	padding-top: 20px;
+	color: #111;
+}
+
+.float-left {
+	float: left;
+}
+
+a {
+	color: aliceblue;
+	text-decoration: none;
+}
+
+#line-chart {
+	height: 300px;
+	width: 800px;
+	margin: 0px auto;
+	margin-top: 1em;
+}
+
+.navbar-default .navbar-brand, .navbar-default .navbar-brand:hover {
+	color: #fff;
+}
+
+.dashboard-menu nav nav-list collapse in :hover {
+	background-color: aquamarine;
+}
+
+body {
+	background-image: url();
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-attachment: fixed;
+	position: relative;
+}
+
+.sections {
+	position: relative;
+	min-height: 700px;
+	width: 1360px;
+	background: #fff;
+	margin: auto;
+	border: 5px solid #000e07;
+	padding: 15px 15px 15px 15px;
+	/* background-color: rgba(60, 60, 60, 0.5); */
+	border-radius: 25px;
+}
+
+.school-name {
+	font-size: 40px;
+	color: rgb(15, 14, 14);
+	margin-left: 200px;
+	width: 1900px;
+}
+
+.th-liu {
+	background-color: rgb(87, 128, 161);
+	color: white;
+	border-radius: 10px;
+}
+
+.table-liu {
+	
+}
+
+.foot-liu {
+	height: 250px;
+	background-color: #fbb710;
+}
+</style>
+
+</head>
+
+<body>
+	<div class="hbf">
+		<div class="head">
+			<div class="hbf-head">
+				<p class="school-name">
+					Auto repair. <span id="time1"
+						style="color: rgb(15, 14, 14); font-size: 20px; position: absolute; padding-top: 20px"></span>
+					<span id="studentName" studentName="" class="fa fa-paper-plane"
+						style="color: rgb(15, 14, 14); font-size: 20px; padding-left: 900px"
+						style="position: absolute">学生名字:</span><span id="studentNumber"
+						class="fa"
+						style="color: rgb(15, 14, 14); font-size: 20px; padding-left: 100px"
+						style="position: absolute">学号:</span> <a href="doLogout.do"><span
+						id="studentName" studentName="" class="fa"
+						style="color: rgb(15, 14, 14); font-size: 20px; padding-left: 100px;"
+						style="position: absolute">登出👉</span></a>
+				</p>
+
+
+				<div class="all_list ">
+					<ul class="list">
+
+						<li class="float-left" style="margin-left: 200px"><a
+							href="index10.do">首页</a></li>
+
+						<li class="float-left" onmouseover="show(this)"
+							onmouseout="hide(this)"><a>学籍模块</a>
+							<ul class="hover">
+								<li class="no-left"><a id="personCard">个人卡片</a></li>
+								<li id="informationManagement" class="no-left"><a>信息管理</a></li>
+								<li id="studentIdCardReplacement" class="no-left"><a>学生证补办</a></li>
+								<li class="no-left"><a id="scoreInquiry">成绩查询</a></li>
+								<!-- <li id="resultsThat" class="no-left"><a>成绩认定</a></li> -->
+							</ul></li>
+						<li class="float-left" onmouseover="show(this)"
+							onmouseout="hide(this)"><a>课程管理</a>
+							<ul class="hover">
+								<li id="individualTermSchedule" class="no-left"><a>个人学期课表</a></li>
+								<li id="optionalCourse" class="no-left"><a>选修课</a></li>
+								<li class="no-left"><a id="curriculumsTable">课程列表</a></li>
+								<li id="teacherScheduleInquiry" class="no-left"><a>教师课表查询</a></li>
+								<li class="no-left"><a id="courseScheduleInquiry">课程查询</a></li>
+								<li id="courseRecord" class="no-left"><a>选课记录</a></li>
+							</ul></li>
+						<li class="float-left" onmouseover="show(this)"
+							onmouseout="hide(this)"><a>评价平台</a>
+							<ul class="hover">
+								<li id="studentAssessment" class="no-left"><a>学生评价</a></li>
+								<li id="doUserEvaMassege" class="no-left"><a>教师评价</a></li>
+								<!-- wertgsrgsdfg -->
+							</ul></li>
+						<li class="float-left"></li>
+					</ul>
+				</div>
+				<div style="background-color: #fbb710; height: 5px; width: 1900px"></div>
+			</div>
+		</div>
+	</div>
+
+	<div class="sections">
+		<section id="mainContentId">
+			<!-- ++++++++++++++++++++++++++++++++++ -->
+			<!-- ++++++++++++++++++++++++++++++++++ -->
+			<!-- ++++++++++++++++++++++++++++++++++ -->
+			<!-- ++++++++++++++++++++++++++++++++++ -->
+			<!-- ++++++++++++++++++++++++++++++++++ -->
+			<!-- ++++++++++++++++++++++++++++++++++ -->
+			<!-- ++++++++++++++++++++++++++++++++++ -->
+
+
+
+
+
+
+			<!-- ++++++++++++++++++++++++++++++++++ -->
+			<!-- ++++++++++++++++++++++++++++++++++ -->
+			<!-- ++++++++++++++++++++++++++++++++++ -->
+			<!-- ++++++++++++++++++++++++++++++++++ -->
+			<!-- ++++++++++++++++++++++++++++++++++ -->
+			<!-- ++++++++++++++++++++++++++++++++++ -->
+			<!-- ++++++++++++++++++++++++++++++++++ -->
+			<style type="text/css">
+#demo {
+	overflow: hidden;
+	width: 1310px;
+}
+
+#indemo {
+	float: left;
+	width: 800%;
+}
+
+#demo1 {
+	float: left;
+}
+
+#demo2 {
+	float: left;
+	margin-left: 7px;
+}
+</style>
+			<div id="demo">
+				<div id="indemo">
+					<div id="demo1">
+						<a href="#"><img src="img/99.png" alt="#" /></a>
+						<!-- <a href="#"><img src="../img/13.jpg" alt="#" /></a>
+                        <a href="#"><img src="../img/15.jpg" alt="#" /></a>
+                        <a href="#"><img src="../img/17.jpg" alt="#" /></a>
+                        <a href="#"><img src="../img/19.jpg" alt="#" /></a>
+                        <a href="#"><img src="../img/11.jpg" alt="#" /></a> -->
+					</div>
+					<div id="demo2"></div>
+				</div>
+			</div>
+			<script>
+				var speed = 15; //数字越大速度越慢
+				var tab = document.getElementById("demo");
+				var tab1 = document.getElementById("demo1");
+				var tab2 = document.getElementById("demo2");
+				tab2.innerHTML = tab1.innerHTML;
+				function Marquee() {
+					if (tab2.offsetWidth - tab.scrollLeft <= 0)
+						tab.scrollLeft -= tab1.offsetWidth
+					else {
+						tab.scrollLeft++;
+					}
+				}
+				var MyMar = setInterval(Marquee, speed);
+				tab.onmouseover = function() {
+					clearInterval(MyMar)
+				};
+				tab.onmouseout = function() {
+					MyMar = setInterval(Marquee, speed)
+				};
+			</script>
+
+
+
+			<!-- <div id="wrap">
+                <ul id="list">
+                    <li><img src="img/1.jpg"></li>
+
+                </ul>
+            </div> -->
+			<!-- ++++++++++++++++++++++++++++++++++ -->
+			<!-- ++++++++++++++++++++++++++++++++++ -->
+			<!-- ++++++++++++++++++++++++++++++++++ -->
+			<!-- ++++++++++++++++++++++++++++++++++ -->
+			<!-- ++++++++++++++++++++++++++++++++++ -->
+			<!-- ++++++++++++++++++++++++++++++++++ -->
+			<!-- ++++++++++++++++++++++++++++++++++ -->
+		</section>
+
+
+	</div>
+
+	<div style="height: 10px; background-color: #111; margin-top: 50px;"></div>
+	<div class="foot-liu">
+		<div style="padding-top: 70px; padding-left: 720px">
+			<span style="color: white; font-size: 80px; margin: auto"><span
+				style="color: black">★</span>Auto repair.</span>
+		</div>
+		<div
+			style="width: 17px; height: 20px; margin-left: 1700px; background-color: #111">
+			<a href="#">👆</a>
+		</div>
+	</div>
+
+
+	<script src="lib/jquery-1.11.1.min.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		$(function() {
+			setInterval(function() {
+				mytime()
+			}, 1000);
+			doGetUserObject();
+			openList();
+			doLoad("#personCard", "userMessage/doUserMessageUI.do");
+			doLoad("#scoreInquiry", "userMessage/doUserGradeListUI.do");
+			doLoad("#courseScheduleInquiry", "course/doCourseSearch.do");
+			doLoad("#curriculumsTable", "individual.do");
+			/* doLoad("#informationManagement", "informationManagement.do"); */
+			doLoad("#studentIdCardReplacement", "studentIdCardReplacement.do");
+			/* doLoad("#scoreInquiry", "scoreInquiry.do"); */
+			doLoad("#resultsThat", "resultsThat.do");
+			doLoad("#individualTermSchedule", "individualTermSchedule.do");
+			doLoad("#optionalCourse", "optionalCourse.do");
+
+			doLoad("#teacherScheduleInquiry", "teacherScheduleInquiry.do");
+
+			doLoad("#courseRecord", "courseRecord.do");
+			doLoad("#studentAssessment", "studentAssessment.do");
+			doLoad("#doUserEvaMassege", "userMessage/doUserEvaMassege.do");//sadfasdfasdfasdfasdfasdf
+
+		})
+		var hide = function(li) {
+			var a = li.getElementsByTagName("ul")[0];
+			a.style.display = "none";
+		}
+
+		var show = function(li) {
+			var a = li.getElementsByTagName("ul")[0];
+			a.style.display = "block";
+		}
+		function openList() {
+			$(".openList").click(function() {
+				$(this).next("li").toggle();
+			})
+		}
+
+		function doLoad(id, url) {
+			$(id).click(function() {
+				$("#mainContentId").load(url, function() {
+					$("#mainContentId").removeData();
+				});
+			})
+		}
+
+		function mytime() {
+			var a = new Date();
+			var b = a.toLocaleTimeString();
+			var c = a.toLocaleDateString();
+			document.getElementById("time1").innerHTML = c + "&nbsp" + b;
+		}
+
+		function doGetUserObject() {
+			url = "dofindObjectByUserName.do"
+			$.getJSON(url, function(result) {
+				if (result.state == 1) {
+					doHandleResult(result.data);
+					console.log(result);
+					$("#mainContentId").data("result",result.data);
+				} else {
+					console.log(result);
+				}
+			})
+		}
+
+		function doHandleResult(data) {
+			$("#studentName").html("学生名字: "+data.userName);
+			$("#studentNumber").html("学号: "+data.number);
+		}
+	</script>
+
+</body>
+
+</html>

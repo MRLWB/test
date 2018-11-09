@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jx.dao.SysCourseDao">
+
+	<select id="findAll" resultType="SysCourse">
+		select * from sys_course
+		where nunm in
+		<foreach collection="list" item="num" open="(" close=")"
+			separator=",">
+			#{num}
+		</foreach>
+	</select>
+
+	<select id="findByCouserName" resultType="SysCourse">
+		select * from sys_course
+		<where>
+			<if test="name!=null and name!=''">
+				name like concat("%",#{name},"%")
+			</if>
+		</where>
+	</select>
+	
+	<select id="findCourseByCourseId" resultType="SysCourse">
+		select id,name from sys_course
+		where id in
+		<foreach collection="list" open="(" close=")" separator=","
+			item="item">
+			#{item}
+		</foreach>
+	</select>
+</mapper>

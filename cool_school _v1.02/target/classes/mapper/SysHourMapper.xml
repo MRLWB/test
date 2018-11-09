@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jx.dao.SysHourDao">
+	<!-- <select id="findObjectByUserId" resultType="com.jx.vo.SysHour"> select 
+		* from sys_hour a, sys_course b where a.course_id=b.id and a.id in (select 
+		hour_id from sys_class c where c.user_id=#{id}); </select> -->
+	<!-- 通过CourseId的值获取课时表的集合 -->
+	<!-- <resultMap type="com.jx.pojo.SysHour" id="SysHour"> </resultMap> -->
+	<select id="findAllByCourseId" resultType="com.jx.pojo.SysHour">
+		select * from sys_hour
+		where course_id in
+		<foreach collection="list" open="(" close=")" separator=","
+			item="item">
+			#{item}
+		</foreach>
+	</select>
+</mapper>

@@ -1,0 +1,137 @@
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12">
+			<h1>个人学籍信息</h1>
+			<span style="float: right;"><button type="submit"
+					class="btn-update"
+					style="background: #0c60a0e1; border: 2px solid; border-radius: 3px;">修改</button></span>
+		</div>
+		<div class="king-page-box">
+			<div class="king-container clearfix"
+				style="margin: 100px; border-radius: 20px;">
+				<table class="table mb0 pr15 ranger-box table-bordered "
+					style="width: auto;text-align:center; margin: 0 auto; margin-bottom: 100px; border: 3px solid; border-radius: 20px;">
+
+					<tr>
+						<!-- <th style="width: auto; text-align: center">选中</th> -->
+						<!-- <td style="min-width: 135px;" id="id1-liu"></td> -->
+						<th
+							style="width: auto; text-align: center;  font-size: 35px; border: 3px solid; background-color: aquamarine;"
+							colspan=2>用户ID</th>
+						<td
+							style="min-width: 200px; height: 80px;font-size: 35px; border-radius: 20px; border: 3px solid;"
+							id="id2-liu" colspan=2></td>
+					</tr>
+					<tr>
+						<th
+							style="width: auto; text-align: center; font-size: 35px;  border: 3px solid; background-color: aquamarine;">用户名</th>
+						<td id="id3-liu"
+							style="min-width: 135px; border-radius: 20px;font-size: 35px; border: 3px solid;"></td>
+						<th
+							style="width: auto; text-align: center; font-size: 35px;  border: 3px solid; background-color: aquamarine;">班级</th>
+						<td
+							style="min-width: 200px; height: 80px;font-size: 35px; border-radius: 20px; border: 3px solid;"
+							id="id4-liu"></td>
+					</tr>
+					<tr>
+						<th
+							style="width: auto; text-align: center; font-size: 35px;  border: 3px solid; background-color: aquamarine;">手机</th>
+						<td id="id5-liu"
+							style="min-width: 135px; border-radius: 20px;font-size: 35px; border: 3px solid;"></td>
+						<th
+							style="width: auto; text-align: center; font-size: 35px;  border: 3px solid; background-color: aquamarine;">邮箱</th>
+						<td
+							style="min-width: 200px; height: 80px;font-size: 35px; border-radius: 20px; border: 3px solid;"
+							id="id6-liu"></td>
+					</tr>
+					<tr>
+						<th
+							style="width: 200px; text-align: center; font-size: 35px;  border: 3px solid; background-color: aquamarine;">专业名称</th>
+						<td id="id7-liu"
+							style="min-width: 135px; border-radius: 20px;font-size: 35px; border: 3px solid;"></td>
+						<th
+							style="width: auto; text-align: center; font-size: 35px;  border: 3px solid; background-color: aquamarine;">院系名称</th>
+						<td
+							style="min-width: 200px; height: 80px;font-size: 35px; border-radius: 20px; border: 3px solid;"
+							id="id8-liu"></td>
+					</tr>
+
+
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+<script>
+	$(document).ready(function() {
+		doFindObjectById();
+		$(".span12").on("click", ".btn-update", doLoadEditUI); 
+
+	});
+
+	function doLoadEditUI() {
+
+		$("#mainContentId").load("userMessage/doUpdate.do")
+
+	} 
+
+	function doFindObjectById() {
+		
+		var data=$("#mainContentId").data("result");
+		console.log(data);
+		//1.params
+		var params = {
+			"id" : data.id
+		};
+		//2.url
+		var url = "userMessage/doFindObject.do";
+		//3.ajax request
+		$.getJSON(url, params, function(result) {//JsonResult
+			if (result.state == 1) {
+				console.log(result);
+				
+				
+				$("#mainContentId").data("rowData", result.data);
+				/* doHandleResponseResult(result.data); */
+				$("#id2-liu").html(result.data.id);
+				$("#id3-liu").html(result.data.userName);
+				$("#id4-liu").html(result.data.class_name);
+				$("#id5-liu").html(result.data.mobile);
+				$("#id6-liu").html(result.data.email);
+				$("#id7-liu").html(result.data.pro_name);
+				$("#id8-liu").html(result.data.dept_name);
+			} else {
+				alert(result.message);
+			}
+		});
+	}
+
+	/* function doGetCheckedId() {
+		return $("tbody input[name='radioId']:checked").val();
+	} */
+
+	/* function doHandleResponseResult(data) {
+		if (result.state == 1) {
+			
+				doSetTableBodyRows(data);
+			
+		} else {
+			alert(result.message);
+		}
+	}
+
+	//通过服务端返回的数据初始化页面
+	function doSetTableBodyRows(data) {
+		//1.获取tbody对象，并清空内容
+		var tBody = $("#tbodyId");
+		tBody.empty();
+		/* $("#id1-liu").html(data.courseName); */
+		
+
+	
+</script>

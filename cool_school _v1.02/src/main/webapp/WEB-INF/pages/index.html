@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>-达内汽修学院-</title>
+    <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/theme.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/premium.css">
+</head>
+
+<body class=" theme-blue">
+    <div class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+            </button>
+            <a href="index.html"><span class="navbar-brand"><span class="fa fa-paper-plane"></span>学生名字</span></a>
+            <a><span class="navbar-brand"><span class="fa"></span>注销</span></a>
+        </div>
+    </div>
+
+    <div class="sidebar-nav">
+        <ul>
+            <li class="openList">
+                <h3><a data-target=".dashboard-menu" class="nav-header" data-toggle="collapse">学籍模块<i class="fa fa-collapse"></i></a></h3>
+            </li>
+            <li style="display: none;">
+                <ul class="dashboard-menu nav nav-list collapse in">
+                    <li id="personalCard"><a><span class="fa fa-caret-right"></span> 个人卡片</a></li>
+                    <li id="informationManagement "><a><span class="fa fa-caret-right"></span> 信息管理</a></li>
+                    <li id="studentIdCardReplacement"><a><span class="fa fa-caret-right"></span> 学生证补办</a></li>
+                    <li id="scoreInquiry"><a><span class="fa fa-caret-right"></span> 成绩查询</a></li>
+                    <li id="resultsThat"><a><span class="fa fa-caret-right"></span> 成绩认定</a></li>
+                </ul>
+            </li>
+        </ul>
+
+        <ul>
+            <li class="openList">
+                <h3><a data-target=".dashboard-menu" class="nav-header" data-toggle="collapse">课程管理<i class="fa fa-collapse"></i></a></h3>
+            </li>
+            <li style="display: none;">
+                <ul class="dashboard-menu nav nav-list collapse in">
+                    <li id="individualTermSchedule"><a><span class="fa fa-caret-right"></span> 个人学期课表</a></li>
+                    <li id="optionalCourse"><a><span class="fa fa-caret-right"></span> 选修课</a></li>
+                    <li id="curriculumsTable"><a><span class="fa fa-caret-right"></span> 课程列表</a></li>
+                    <li id="teacherScheduleInquiry"><a><span class="fa fa-caret-right"></span> 教师课表查询</a></li>
+                   <!--  <li id="courseScheduleInquiry"><a><span class="fa fa-caret-right"></span> 课程课表查询</a></li> -->
+                    <li id="courseRecord"><a><span class="fa fa-caret-right"></span> 选课记录</a></li>
+                </ul>
+            </li>
+        </ul>
+
+        <ul>
+            <li class="openList">
+                <h3><a data-target=".dashboard-menu" class="nav-header" data-toggle="collapse">评价平台<i class="fa fa-collapse"></i></a></h3>
+            </li>
+            <li style="display: none;">
+                <ul class="dashboard-menu nav nav-list collapse in">
+                    <li id="studentAssessment"><a><span class="fa fa-caret-right"></span> 学生评价</a></li>
+                    <li id="teacherEvaluation"><a><span class="fa fa-caret-right"></span> 教师评价</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <section id="mainContentId" class="content container-fluid">
+
+
+    </section>
+
+</body>
+<footer>
+    <div class="navbar navbar-default">
+        <div class="navbar-footer">
+            <a>
+                <span id="time1" class="navbar-brand">
+                    <span class="fa"></span>
+                </span>
+            </a>
+        </div>
+    </div>
+</footer>
+
+<script src="lib/jquery-1.11.1.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function () {
+        setInterval(function () { mytime() }, 1000);
+        openList();
+        doLoad("#personalCard", "users.do");
+    })
+
+    function openList() {
+        $(".openList").click(function () {
+            $(this).next("li").toggle();
+        })
+    }
+
+    function doLoad(domId, url) {
+        $(domId).click(function () {
+            $("#mainContentId").load(url);
+        })
+    }
+
+    function mytime() {
+        var a = new Date();
+        var b = a.toLocaleTimeString();
+        var c = a.toLocaleDateString();
+        document.getElementById("time1").innerHTML = c + "&nbsp" + b;
+    }
+</script>
+<style type="text/css">
+    #line-chart {
+        height: 300px;
+        width: 800px;
+        margin: 0px auto;
+        margin-top: 1em;
+    }
+
+    .navbar-default .navbar-brand,
+    .navbar-default .navbar-brand:hover {
+        color: #fff;
+    }
+
+    .dashboard-menu nav nav-list collapse in :hover {
+        background-color: aquamarine;
+    }
+</style>
+
+</html>

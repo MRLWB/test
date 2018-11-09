@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jx.dao.SysUserDao">
+
+	<select id="findByIds" resultType="SysUser">
+		select * from sys_user where id in
+		<foreach collection="list" item="id" open="(" close=")"
+			separator=",">
+			#{id}
+		</foreach>
+		limit #{startIndex},#{pagesize}
+
+	</select>
+
+	<select id="findSysUser" resultType="com.jx.pojo.SysUser">
+		<!-- 根据用户id查询用户信息 -->
+		select *
+		from sys_user
+		where id=#{id}
+	</select>
+
+	<!-- 更新用户自身信息:密码，邮箱，手机 -->
+	<update id="updateMessage" parameterType="com.jx.pojo.SysUser">
+		update sys_user
+		<set>
+			<if test="passWord!=null and passWord!=''">
+				passWord=#{passWord},
+				salt=#{salt},
+			</if>
+			<if test="email!=null and email!=''">
+				email=#{email},
+			</if>
+			<if test="mobile!=null and mobile!=''">
+				mobile=#{mobile},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+
+	<!-- 查询用户基本信息 -->
+	<select id="findObject" resultType="com.jx.pojo.SysUserMessage">
+		select u.id,u.userName,u.email,u.mobile,c.name class_name,c.pro_id
+		,p.name pro_name,d.name dept_name
+		from sys_user u , sys_class c
+		,sys_dept d,sys_pro p
+		<where>
+			<if test="id!=null and id!=''">
+				(u.id=#{id})
+				and (u.id=c.user_id)
+				and (c.pro_id=p.id)
+			
+				and (p.dept_id=d.id)
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据Id查询成绩 -->
+	<select id="findUserGradeList" resultType="com.jx.pojo.SysGradeList">
+		select c.nunm, c.name,
+		c.goal, tx.name tx_name, c.way, c.note, d.name
+		dept_name,
+		p.name
+		pro_name, c.start_time, c.period, g.grade
+		from sys_grade g, sys_course
+		c,sys_dept d,sys_pro p,sys_tx tx
+		where g.user_id=#{user_id} and
+		g.course_num=c.nunm and
+		d.id=c.dept_id=p.dept_id and c.tx_id=tx.id
+	</select>
+
+	<select id="findObjectByUserName" resultType="com.jx.pojo.SysUser">
+		select*from
+		sys_user where number=#{number}
+	</select>
+	<select id="findRoleIdsByUserName" resultType="int">
+		select role_id
+		from sys_user where number=#{number}
+	</select>
+	<insert id="insertObject" parameterType="com.jx.pojo.SysUser">
+		insert into sys_user
+		(userName,passWord,salt,email,mobile,role_id,eva_id,class_id)
+		values
+		(#{userName},#{passWord},#{salt},#{email},#{mobile},#{role_id},#{eva_id},#{class_id})
+	</insert>
+
+</mapper>

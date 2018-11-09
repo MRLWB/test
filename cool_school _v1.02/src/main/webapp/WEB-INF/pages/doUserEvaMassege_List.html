@@ -1,0 +1,71 @@
+<select id="selector">
+	<option></option>
+	<option value="3102345">体育</option>
+	<option value="20191511">马克思主义哲学</option>
+	<option value="12120440">高等数学</option>
+	<option value="9120730">应用文写作</option>
+</select>
+
+<span id="sss">
+<button type="button" class="btn btn-danger" id="confirmToFind">查找</button>
+</span>
+
+<div class="teacher">
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12">
+				<h1>教师评价</h1>
+			</div>
+		</div>
+	</div>
+
+	<div class="king-page-box">
+		<div class="king-container clearfix">
+			<table class="table mb0 pr15 ranger-box table-bordered ">
+				<thead>
+					<tr>
+						<th class="th-liu" style="width: 10%;">
+							<h3 class="text-center" >教师名</h3>
+						</th>
+						<th class="th-liu" style="width: 10%;">
+							<h3 class="text-center" >课程</h3>
+						</th>
+						<th class="th-liu">
+							<h3 class="text-center">评价内容</h3>
+						</th>
+					</tr>
+				</thead>
+
+				<tbody style="text-align: center">
+					<tr>
+						<td style="vertical-align: middle" id="mothorFuckerName"></td>
+						<td style="vertical-align: middle" id="mothorFuckerCourse"></td>
+						<td style="vertical-align: middle; word-break: break-all;" id="mothorFuckerDesc"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+<script src="lib/jquery-1.11.1.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+	$(function() {
+		$("#sss").on("click","#confirmToFind",findTeacherMessage);
+	})
+
+	function findTeacherMessage() {
+		var selectorValue = $("#selector").val();
+		var data = {
+			nunm : selectorValue
+		};
+		$.getJSON("userMessage/doUserEvaMassegeList.do", data,
+				function(result) {
+			
+					$("#mothorFuckerName").text(result.data[0].userName);
+					$("#mothorFuckerCourse").text(result.data[0].name);
+					$("#mothorFuckerDesc").text(result.data[0].note);
+				});
+	}
+</script>

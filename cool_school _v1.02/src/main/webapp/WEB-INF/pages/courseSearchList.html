@@ -1,0 +1,127 @@
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12">
+			<h1>课程查询</h1>
+		</div>
+	</div>
+</div>
+
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12" style="padding-left: 500px">
+				<input class="input-medium search-query" id="searchNameId"
+					type="text" />
+			<button id="btn-search">查找</button>
+		</div>
+	</div>
+</div>
+
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12">
+			<table class="table table-bordered"
+				style="width: auto; margin: 0 auto; margin-bottom: 100px">
+				<tr>
+					<th style="width: auto; text-align: center">课程名</th>
+					<td style="min-width: 300px;" id="id1-liu"></td>
+				</tr>
+				<tr>
+					<th style="width: auto; text-align: center">讲师名字</th>
+					<td id="id2-liu"></td>
+				</tr>
+				<tr>
+					<th style="width: auto; text-align: center">讲师电话</th>
+					<td id="id3-liu"></td>
+				</tr>
+				<tr>
+					<th style="width: auto; text-align: center">讲师邮件</th>
+					<td id="id4-liu"></td>
+				</tr>
+				<tr>
+					<th style="width: auto; text-align: center">所属学院</th>
+					<td id="id5-liu"></td>
+				</tr>
+				<tr>
+					<th style="width: auto; text-align: center" colspan="2">课程简介</th>
+				</tr>
+				<tr>
+					<td colspan="2" style="max-width: 700px" id="id6-liu"></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		
+		$("#btn-search").on("click",doGetObjects);
+	});
+
+	function doGetObjects() {
+		var url = "course/doSerch.do";
+		var courseName = $("#searchNameId").val().trim();
+		if(!courseName){
+			alert("请输入课程");
+			return;
+		}
+		var params = {
+			"courseName" : courseName,
+			"pageCurrent" : 1
+		}
+		
+		$.getJSON(url, params, function(result) {
+			if (result.state == 1) {
+				console.log(result);
+				doHandleResponseResult(result.data.records);
+			} else {
+				console.log(result);
+				alert("没有找到课程");
+			}
+
+		})
+
+	}
+
+	/* function doGetObjects() {
+	    var url = "user/doFindPageObjects.do";//分页在哪！！！！！！！！！！！！！！！
+	    var pageCurrent = $("#pageId").data("pageCurrent");
+	    if (!pageCurrent)
+	        pageCurrent = 1;
+	    var params = {
+	        "pageCurrent": pageCurrent
+	    }
+	    params.courseName = $("#searchNameId").val().trim();
+	    console.log(params);
+	    $.getJSON(url, params, function (result) {
+	        console.log(result);
+	        doHandleResponseResult(result);
+	    });
+	} */
+	function doHandleResponseResult(records) {
+		
+		for(var i in records){
+			doSetTableBodyRows(records[i]);
+		}
+			
+
+		/* } else {
+			alert(result.message);
+		} */
+	}
+	//通过服务端返回的数据初始化页面
+	function doSetTableBodyRows(data) {
+		//1.获取tbody对象，并清空内容
+		var tBody = $("#tbodyId");
+		tBody.empty();
+		//2.迭代data内容将数据追加到tbody中
+		$("#id1-liu").html(data.courseName);
+		$("#id2-liu").html(data.teacherName);
+		$("#id3-liu").html(data.phone);
+		$("#id4-liu").html(data.email);
+		$("#id5-liu").html(data.deptName);
+		$("#id6-liu").html(data.note);
+		 
+
+	}
+</script>

@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Bootstrap Admin</title>
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700'
+	rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css"
+	href="lib/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css">
+<script type="text/javascript" src="lib/jquery-1.11.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="stylesheets/theme.css">
+<link rel="stylesheet" type="text/css" href="stylesheets/premium.css">
+<link rel="shortcut icon" href="assets/ico/favicon.ico">
+<link rel="apple-touch-icon-precomposed" sizes="144x144"
+	href="assets/ico/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114"
+	href="assets/ico/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72"
+	href="assets/ico/apple-touch-icon-72-precomposed.png">
+<link rel="ap ple-touch-icon-precomposed"
+	href="assets/ico/apple-touch-icon-57-precomposed.png">
+
+</head>
+<body class=" theme-blue" id="bodyImage">
+	<style type="text/css">
+#line-chart {
+	height: 300px;
+	width: 800px;
+	margin: 0px auto;
+	margin-top: 1em;
+}
+
+.navbar-default .navbar-brand, .navbar-default .navbar-brand:hover {
+	color: #fff;
+}
+
+#denglu:hover {
+	color: yellow;
+}
+
+#bodyImage {
+	background-image: url(image/3.png);
+	background-repeat: no-repeat;
+	margin: 0px auto;
+}
+
+#right {
+	position: absolute;
+	right: 250px;
+	top: 223px;
+}
+</style>
+
+
+
+
+	<div class="dialog">
+		<div id="right">
+			<div class="panel panel-default"
+				style="position: relative; width: 128%">
+				<p class="panel-heading no-collapse"
+					style="background-color: #fbb710;color:black">Auto repair school.</p>
+				<div class="panel-body" style="background-color:white;">
+					<form method="post">
+						<div class="form-group">
+							<label>学号</label><span id="message"></span> <input type="text"
+								class="form-control span12" id="number" name="number">
+						</div>
+						<div class="form-group">
+							<label>密码</label> <input type="password"
+								class="form-controlspan12 form-control" id="password"
+								name="password">
+						</div>
+						<input type="button" value="登陆" class="btn btn-primary pull-right"
+							id="denglu"> <label class="remember-me"><input
+							type="checkbox"> 记住我</label>
+						<div class="clearfix"></div>
+					</form>
+				</div>
+			</div>
+			<p>
+				<a href="update-password.do">修改密码？</a><a href="forget-password.do"
+					style="position: relative; left: 230px">忘记密码？</a>
+			</p>
+		</div>
+	</div>
+
+
+	<script src="lib/bootstrap/js/bootstrap.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			console.log("denglu");
+
+			$("#denglu").on("click", denglu);
+		});
+
+		function denglu() {
+			var number = $("#number").val();
+			var password = $("#password").val();
+			if (!number) {
+				alert("请输入用户名");
+				return;
+			}
+			if (!password) {
+				alert("请输入密码");
+				return;
+			}
+			var parms = {
+				number : $("#number").val(),
+				password : $("#password").val()
+			}
+			console.log("parms:" + parms.number + parms.password);
+			var url = "doLogin.do";
+			$.post(url, parms, function(result) {
+				if (result.state == 1) {
+					alert("登陆成功");
+					//跳转到对应的主页页面
+					location.href = "index.do?number="+parms.number;
+				} else {
+					alert("未知错误");
+				}
+				return false;//防止刷新时重复提交
+			});
+		}
+	</script>
+
+
+</body>
+</html>

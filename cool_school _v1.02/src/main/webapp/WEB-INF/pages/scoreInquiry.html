@@ -1,0 +1,116 @@
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12">
+			<h1>成绩查询</h1>
+		</div>
+	</div>
+</div>
+
+<div class="king-page-box">
+	<div class="king-container clearfix">
+		<table class="table mb0 pr15 ranger-box table-bordered ">
+			<thead>
+				<tr>
+					<th class="danger" style="width: 10%;">
+						<h3 class="text-center">用户id</h3>
+					</th>
+					<th class="danger" style="width: 10%;">
+						<h3 class="text-center">课程编码</h3>
+					</th>
+					<th class="danger" style="width: 10%;">
+						<h3 class="text-center">课程名称</h3>
+					</th>
+					<th class="danger" style="width: 10%;">
+						<h3 class="text-center">学分</h3>
+					</th>
+					<th class="danger" style="width: 10%;">
+						<h3 class="text-center">体系名称</h3>
+					</th>
+					<th class="danger" style="width: 10%;">
+						<h3 class="text-center">考核方式</h3>
+					</th>
+					<th class="danger" style="width: 10%;">
+						<h3 class="text-center">备注</h3>
+					</th>
+					<th class="danger" style="width: 10%;">
+						<h3 class="text-center">院系名</h3>
+					</th>
+					<th class="danger" style="width: 10%;">
+						<h3 class="text-center">专业名</h3>
+					</th>
+					<th class="danger" style="width: 10%;">
+						<h3 class="text-center">开课时间</h3>
+					</th>
+					<th class="danger" style="width: 10%;">
+						<h3 class="text-center">总学时</h3>
+					</th>
+					<th class="danger" style="width: 10%;">
+						<h3 class="text-center">成绩</h3>
+					</th>
+				</tr>
+			</thead>
+
+			<tbody id="tbodyId" style="text-align: center">
+
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<script>
+	$(document).ready(function() {
+		doFindObjectById(1);
+	});
+
+	function doFindObjectById(user_id) {
+		//1.params
+		var params = {
+			"user_id" : user_id
+		};
+		//2.url
+		var url = "userMessage/doUserGradeList.do";
+		//3.ajax request
+		$.getJSON(url, params, function(result) {//JsonResult
+			if (result.state == 1) {
+				console.log(result);
+				$("#mainContentId").data("rowData", result.data);
+				doHandleResponseResult(result);
+			} else {
+				alert(result.message);
+			}
+		});
+	}
+
+	function doHandleResponseResult(result) {
+		if (result.state == 1) {
+			doSetTableBodyRows(result.data);
+
+		} else {
+			alert(result.message);
+		}
+	}
+
+	//通过服务端返回的数据初始化页面
+	function doSetTableBodyRows(data) {
+		console.log(data)
+		//1.获取tbody对象，并清空内容
+		var tBody = $("#tbodyId");
+		tBody.empty();
+		for ( var i in data) {
+			var tr = $("<tr></tr>");
+			var tds = "<td>" + data[i].user_id + "</td>" + "<td>"
+					+ data[i].nunm + "</td>" + "<td>" + data[i].name + "</td>"
+					+ "<td>" + data[i].goal + "</td>" + "<td>"
+					+ data[i].tx_name + "</td>" + "<td>" + data[i].way
+					+ "</td>" + "<td>" + data[i].note + "</td>" + "<td>"
+					+ data[i].dept_name + "</td>" + "<td>" + data[i].pro_name
+					+ "</td>" + "<td>" + data[i].start_time + "</td>" + "<td>"
+					+ data[i].period + "</td>" + "<td>" + data[i].grade
+					+ "</td>"
+			tr.append(tds);
+			tBody.append(tr);
+		}
+
+		console.log(data)
+	}
+</script>

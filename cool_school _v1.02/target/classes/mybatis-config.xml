@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+	<typeAlias alias="SysCourse" type="com.jx.pojo.SysCourse"/>
+	<typeAlias alias="SysGarde" type="com.jx.pojo.SysGarde"/>
+	<typeAlias alias="SysUser" type="com.jx.pojo.SysUser"/>
+	<typeAlias alias="SysUserEvaMessage" type="com.jx.pojo.SysUserEvaMessage"/>
+	</typeAliases>
+
+</configuration>

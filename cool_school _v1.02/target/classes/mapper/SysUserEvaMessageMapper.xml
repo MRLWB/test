@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jx.dao.SysUserEvaMessageDao">
+
+	
+	<select id="findUserEvaMassege" resultType="SysUserEvaMessage">
+	    select  c.nunm , c.name, u.userName, c.period, e.note
+	    from  sys_course c, sys_eva e, sys_user u
+	    where c.nunm =#{nunm} and c.nunm=e.course_nunm and u.eva_id =e.id
+	</select>
+
+</mapper>
+
+
+

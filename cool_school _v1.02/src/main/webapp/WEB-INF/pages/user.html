@@ -1,0 +1,192 @@
+<div class="container-fluid" style="padding-bottom:10px;">
+    <div class="row-fluid">
+        <div class="span12">
+            <h1>用户表 User</h1>
+            <span style="margin-left:1100px">
+                <button class="btn-add" type="button">添加</button>
+                <button class="btn-update" type="button">修改</button>
+                <button class="btn-delete" type="button">删除</button>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="king-page-box">
+    <div class="king-container clearfix">
+        <table class="table mb0 pr15 ranger-box table-bordered ">
+            <thead>
+                <tr>
+                    <th class="danger" style="width: 10%;">
+                        <h3 class="text-center">id</h3>
+                    </th>
+                    <th class="danger" style="width: 10%;">
+                        <h3 class="text-center">用户名</h3>
+                    </th>
+                    <th class="danger" style="width: 10%;">
+                        <h3 class="text-center">密码</h3>
+                    </th>
+                    <th class="danger" style="width: 10%;">
+                        <h3 class="text-center">盐值</h3>
+                    </th>
+                    <th class="danger" style="width: 10%;">
+                        <h3 class="text-center">邮箱</h3>
+                    </th>
+                    <th class="danger" style="width: 10%;">
+                        <h3 class="text-center">手机</h3>
+                    </th>
+                    <th class="danger" style="width: 10%;">
+                        <h3 class="text-center">权限</h3>
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody id="tbodyId">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    $(document).ready(
+        function () {
+            $("#pageId").load("doPageUI.do", function () {
+                doGetObjects();
+            });
+            $(".span12")
+                
+                .on("click", ".btn-add,.btn-update", doLoadEditUI)
+                .on("click", "btn-delete", doDeleteUI);
+           /*  $("tbody").on("click", ".btn-valid", doValidById); */
+        });
+
+    function doLoadEditUI() {
+        //1.判定点击的对象
+        var title;
+        if ($(this).hasClass("btn-add")) {
+            title = "添加用户";
+            doLoadPage(title);
+        } else if ($(this).hasClass("btn-update")) {
+            title = "修改用户";
+            var id = doGetCheckedId();
+            console.log("id=" + id)
+            if (!id) {
+                alert("请先选择");
+                return;
+            }
+            //基于id进行查询并加载编辑页面
+            doFindObjectById(id, title);
+        }
+    }
+    function doFindObjectById(id, title) {
+        //1.params
+        var params = {
+            "id": id
+        };
+        //2.url
+        var url = "user/doFindObjectById.do";
+        //3.ajax request
+        $.getJSON(url, params, function (result) {//JsonResult
+            if (result.state == 1) {
+                $("#mainContentId").data("rowData", result.data);
+                doLoadPage(title);
+            } else {
+                alert(result.message);
+            }
+        });
+    }
+
+    function doGetCheckedId() {
+        return $("tbody input[name='radioId']:checked").val();
+    }
+    function doLoadPage(title) {
+        var url = "user/doUserEditUI.do"
+        $("#mainContentId").load(url, function () {
+            $(".box-title").html(title);
+        })
+    }
+    //禁用和启用操作
+    function doValidById() {
+        //params
+        var rowData = $(this).parents("tr").data("rowData");
+        var id = rowData.id;
+        var newValid = rowData.valid ? 0 : 1;
+        var params = {
+            "id": rowData.id,
+            "valid": newValid
+        };
+        //url
+        var url = "user/doValidById.do";
+        //ajax request
+        var btn = $(this);//获取点击的button对象
+        $.post(url, params, function (result) {
+            if (result.state == 1) {
+                alert(result.message);
+                //doGetObjects();//重新查询刷新
+                //优化方式实现(局部刷新:修改button显示,修改td内容显示)
+                doEditRow(btn, rowData.valid);
+            } else {
+                alert(result.message);
+            }
+        })
+    }
+    function doEditRow(obj, valid) {
+        //1.修改按钮上的内容
+        $(obj).html(valid ? "启用" : "禁用");
+        //2.修改tr中第5个td中的内容(查询API文档)
+        var tr = $(obj).parents("tr");
+        tr.find("td:eq(5)").text(valid ? "禁用" : "启用");
+        //3.获取当前行tr对象，然后重新绑定新的值
+        var rowData = tr.data("rowData")
+        rowData.valid = valid ? 0 : 1;
+        tr.data("rowData", rowData);
+    }
+    //处理查询按钮事件
+    function doQueryObjects() {
+        $("#pageId").data("pageCurrent", 1);
+        doGetObjects();
+    }
+    //页面加载完成异步加载当前页数据
+    function doGetObjects() {
+        var url = "user/doFindPageObjects.do";
+        var pageCurrent = $("#pageId").data("pageCurrent");
+        if (!pageCurrent)
+            pageCurrent = 1;
+        var params = {
+            "pageCurrent": pageCurrent
+        }
+        params.username = $("#searchNameId").val().trim();
+        console.log(params);
+        $.getJSON(url, params, function (result) {
+            console.log(result);
+            doHandleResponseResult(result);
+        });
+    }
+    function doHandleResponseResult(result) {
+        if (result.state == 1) {
+            doSetTableBodyRows(result.data.records);
+            doSetPagination(result.data);
+        } else {
+            alert(result.message);
+        }
+    }
+    //通过服务端返回的数据初始化页面
+    function doSetTableBodyRows(data) {
+        //1.获取tbody对象，并清空内容
+        var tBody = $("#tbodyId");
+        tBody.empty();
+        //2.迭代data内容将数据追加到tbody中
+        for (var i in data) {
+            var tr = $("<tr></tr>");
+            tr.data("rowData", data[i]);
+            var tds = doCreateTds(data[i]);
+            tr.append(tds);
+            tBody.append(tr);
+        }
+    }
+    function doCreateTds(row) {
+        console.log(row);
+        var tds = 
+        return tds;
+    }
+
+</script>
